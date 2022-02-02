@@ -24,66 +24,66 @@ class _CounterPeopleAppState extends State<CounterPeopleApp> {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-          body: SingleChildScrollView(
-        child: BackgroundImage(
-          urlImage: urlImage,
-          child: Container(
-            padding: const EdgeInsets.all(60),
-            width: double.maxFinite,
-            alignment: Alignment.center,
-            child: Column(
-              children: [
-                const SizedBox(height: 40),
-                TitleVisibility(
-                  title: 'Pode entrar!',
-                  fontSize: 40,
-                  fontWeight: FontWeight.bold,
-                  visible: _idNotLotado,
-                ),
-                TitleVisibility(
-                  title: 'Lotado',
-                  fontSize: 40,
-                  fontWeight: FontWeight.bold,
-                  visible: (_idNotLotado ? false : true),
-                ),
-                const SizedBox(height: 90),
-                Text(
-                  _counter.toString(),
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 120,
+          body: BackgroundImage(
+            urlImage: urlImage,
+            child: Container(
+              padding: const EdgeInsets.all(60),
+              width: double.maxFinite,
+              alignment: Alignment.center,
+              child: Column(
+                children: [
+                  const SizedBox(height: 70),
+                  TitleVisibility(
+                    title: 'Pode entrar!',
+                    fontSize: 40,
                     fontWeight: FontWeight.bold,
+                    visible: _idNotLotado,
+                    color: Colors.white,
                   ),
-                ),
-                const SizedBox(height: 100),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    TextButton(
-                      onPressed: _counter > 0 ? sair : null,
-                      child: const Text('Saiu'),
-                      style: TextButton.styleFrom(
-                        backgroundColor: Colors.white,
-                        fixedSize: const Size(120, 120),
-                        primary: Colors.black,
-                      ),
+                  TitleVisibility(
+                    title: 'Lotado',
+                    fontSize: 40,
+                    fontWeight: FontWeight.bold,
+                    visible: (_idNotLotado ? false : true),
+                    color: Colors.red,
+                  ),
+                  const SizedBox(height: 90),
+                  Text(
+                    _counter.toString(),
+                    style: TextStyle(
+                      color: (_idNotLotado ? Colors.white : Colors.red),
+                      fontSize: 120,
+                      fontWeight: FontWeight.bold,
                     ),
-                    const SizedBox(width: 30),
-                    TextButton(
-                      onPressed: _idNotLotado ? entrar : null,
-                      child: const Text('Entrou'),
-                      style: TextButton.styleFrom(
-                          backgroundColor: Colors.white,
+                  ),
+                  const SizedBox(height: 100),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextButton(
+                        onPressed: _counter > 0 ? sair : null,
+                        child: const Text('Saiu'),
+                        style: TextButton.styleFrom(
+                          backgroundColor: _counter == 0 ? Colors.white.withOpacity(0.4) : Colors.white,
                           fixedSize: const Size(120, 120),
-                          primary: Colors.black),
-                    ),
-                  ],
-                ),
-              ],
+                          primary: Colors.black,
+                        ),
+                      ),
+                      const SizedBox(width: 30),
+                      TextButton(
+                        onPressed: _idNotLotado ? entrar : null,
+                        child: const Text('Entrou'),
+                        style: TextButton.styleFrom(
+                            backgroundColor: _idNotLotado ? Colors.white : Colors.white.withOpacity(0.2),
+                            fixedSize: const Size(120, 120),
+                            primary: Colors.black),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-        ),
-      )),
+          )),
     );
   }
 
@@ -137,6 +137,7 @@ class TitleVisibility extends StatelessWidget {
   final double fontSize;
   final FontWeight fontWeight;
   bool visible;
+  Color color;
 
   TitleVisibility({
     Key? key,
@@ -144,6 +145,7 @@ class TitleVisibility extends StatelessWidget {
     required this.fontSize,
     required this.fontWeight,
     this.visible = false,
+    required this.color,
   }) : super(key: key);
 
   @override
@@ -153,7 +155,7 @@ class TitleVisibility extends StatelessWidget {
       child: Text(
         title,
         style: TextStyle(
-          color: Colors.white,
+          color: color,
           fontSize: fontSize,
           fontWeight: fontWeight,
         ),
