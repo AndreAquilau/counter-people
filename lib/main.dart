@@ -60,15 +60,7 @@ class _CounterPeopleAppState extends State<CounterPeopleApp> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     TextButton(
-                      onPressed: () {
-                        if (_counter > 0) {
-                          setState(() {
-                            _counter--;
-                          });
-                        }
-
-                        if (_counter < _limit) _idNotLotado = true;
-                      },
+                      onPressed: _counter > 0 ? sair : null,
                       child: const Text('Saiu'),
                       style: TextButton.styleFrom(
                         backgroundColor: Colors.white,
@@ -78,15 +70,7 @@ class _CounterPeopleAppState extends State<CounterPeopleApp> {
                     ),
                     const SizedBox(width: 30),
                     TextButton(
-                      onPressed: () {
-                        if (_counter < _limit) {
-                          setState(() {
-                            _counter++;
-                          });
-                        }
-
-                        if (_counter == _limit) _idNotLotado = false;
-                      },
+                      onPressed: _idNotLotado ? entrar : null,
                       child: const Text('Entrou'),
                       style: TextButton.styleFrom(
                           backgroundColor: Colors.white,
@@ -101,6 +85,26 @@ class _CounterPeopleAppState extends State<CounterPeopleApp> {
         ),
       )),
     );
+  }
+
+  void entrar() {
+    if (_counter < _limit) {
+      setState(() {
+        _counter++;
+      });
+    }
+
+    if (_counter == _limit) _idNotLotado = false;
+  }
+
+  void sair() {
+    if (_counter > 0) {
+      setState(() {
+        _counter--;
+      });
+    }
+
+    if (_counter < _limit) _idNotLotado = true;
   }
 }
 
