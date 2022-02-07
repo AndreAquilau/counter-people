@@ -23,6 +23,7 @@ class _CounterPeopleAppState extends State<CounterPeopleApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      title: 'Counter People',
       home: Scaffold(
           body: BackgroundImage(
             urlImage: urlImage,
